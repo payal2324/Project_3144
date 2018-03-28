@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+<title>Title of the document</title>
+
+<style type="text/css">
+label{
+  font-weight: bold;
+  font-size:40px;
+  font-family:inherit;
+  color:black;
+}
+
+.bg{
+  background-color:white;
+}
+
+#likeid{
+  border-radius: 50px;
+}
+
+#dislikeid{
+    border-radius: 50px;
+}
+</style>
+
+
+</head>
+<body>
+
+<div class="content-area">
+  <div class="container">
+    <div class="columns">
+
+<div id="tinder_card" class="col-4 bg"  style="margin:0 auto; height:600px; width:400px ;line-height:30px; border:1px solid red !important;">
+<img id ="imageid" src= "https://www.thesun.co.uk/wp-content/uploads/2017/08/nintchdbpict000300468322.jpg?strip=all&w=960" style="width:400px; height:350px;display:block; border:1px blue dashed" >
+<label id="nameid" type="text">Name </label><br>
+<label id="ageid" type="number">Age </label><br>
+<label id="cityid" type="text"> City </label><br>
+
+<button id="dislikeid" > <i class="  circle fa fa-thumbs-down fa-5x" style="color:black"></i> </button>
+<button id="likeid">  <i class="fa fa-heart fa-5x circle" style="color:red" ></i> </button>
+
+   <img id="nice" src="" style=" float:right;margin-top:-120px;margin-right:10px; display:none; width:150px ; height:150px;">
+</div>
+
+
+</div></div></div>
+
+
+ <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.js" integrity="sha256-GMd3rFxMDNnM5JQEpiKLLl8kSrDuG5egqchk758z59g=" crossorigin="anonymous"></script>
+ <script src="jquery.hammer.js"></script>
+ <script type="text/javascript">
+
+
+// database :
+var person = [];
+p1= {
+"name" : "Alisha",
+"image" : "https://images.pexels.com/photos/324658/pexels-photo-324658.jpeg?h=350&auto=compress&cs=tinysrgb",
+"description" : {
+"age" : "25",
+"city" : "Toronto",
+
+}
+}
+
+p2 = {
+"name" : "Bobby",
+"image" : "https://images.pexels.com/photos/428339/pexels-photo-428339.jpeg?h=350&auto=compress&cs=tinysrgb",
+"description" : {
+"age" : "23",
+"city" : "Scarborough",
+
+}
+}
+
+p3= {
+  "name" : "David",
+  "image" : "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?h=350&auto=compress&cs=tinysrgb",
+  "description" : {
+  "age" : "31",
+  "city" : "Aberta",
+}
+  }
+p4={
+
+  "name" : "Frank",
+  "image" : "https://images.pexels.com/photos/452558/pexels-photo-452558.jpeg?w=940&h=650&auto=compress&cs=tinysrgb",
+  "description" : {
+  "age" : "22",
+  "city" : "Noida",
+}
+}
+p5={
+  "name" : "Harry",
+  "image" : "https://images.pexels.com/photos/160699/girl-dandelion-yellow-flowers-160699.jpeg?w=940&h=650&auto=compress&cs=tinysrgb",
+  "description" : {
+  "age" : "25",
+  "city" : "Singapore",
+
+}
+
+}
+
+person.push(p1);
+person.push(p2);
+person.push(p3);
+person.push(p4);
+person.push(p5);
+
+var x = JSON.stringify(person);    // x is string of person array
+localStorage.setItem("person",x);
+console.log(localStorage);
+
+var y = localStorage.getItem("person");
+var z = JSON.parse(y);     // z is array of person
+
+//var samplepic= "https://www.thesun.co.uk/wp-content/uploads/2017/08/nintchdbpict000300468322.jpg?strip=all&w=960" ;
+console.log("ello");
+for(i=0;i<3;i++)
+{
+
+console.log(z[i]);
+}
+
+
+// array coding completed...
+
+    // detect gestures when user swipes on #tinderCard div.
+  var card = $("#imageid");
+  // if person swipes left, run the DISLIKE function (see below)
+  card.hammer().bind("swipeleft", dislike);
+  // if person swipes right, run the LIKE function (see below)
+  card.hammer().bind("swiperight", like);
+var j=0;  // counter for array
+
+ j = Math.floor(Math.random() * 3);
+
+function randomWholeNum() {
+
+  // Only change code below this line.
+
+  return Math.random();
+}
+  var likeimage = "https://i1.wp.com/www.androidtutorialpoint.com/wp-content/uploads/2016/11/like.png?w=200&ssl=1"; // like image link
+  // here is the DISLIKE function
+
+function change()
+{
+  // if the "like" image is showing, hide it
+  if ($("#nice").is(":visible")) {
+    $("#nice").hide();
+  }
+
+  $("#imageid").fadeOut(500, function(){
+console.log("inside dislike function");
+    var newimage = z[j].image;
+     var newname=z[j].name;
+     var newage = z[j].description.age;
+     var newcity = z[j].description.city;
+     j= j+1;
+     $("#imageid").attr("src",newimage);
+     $("#nameid").text(newname);
+     $("#ageid").text(newage);
+     $("#cityid").text(newcity);
+     $("#nice").attr("src","");
+
+
+      // show the info
+      $("#imageid").fadeIn(500);
+  });
+}
+
+
+  function dislike(ev) {
+    console.log(ev.type + " dislike gesture detected");
+  change();
+  }
+
+  // here is the LIKE function
+  function like(ev) {
+    console.log(ev.type + "like gesture detected");
+
+    $("#nice").attr("src",likeimage);
+    $("#nice").show();
+
+  }
+
+
+  $("#dislikeid").click(function()
+  {
+      console.log("dislike button pressed");
+    change();
+  });
+
+
+$("#likeid").click(function()
+{
+  console.log("like button  pressed");
+$("#nice").attr("src",likeimage);
+$("#nice").show();
+});
+
+ </script>
+</body>
+</html>
